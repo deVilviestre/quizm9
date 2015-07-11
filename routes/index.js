@@ -11,5 +11,6 @@ router.get('/', function(req, res) {
 router.get('/quizes/question',quizControler.question); //Quiz3
 router.get('/quizes/answer',quizControler.answer); //Quiz3
 
+router.get('/author',quizControler.author); //Modulo-6 P2P
 
 module.exports = router;
