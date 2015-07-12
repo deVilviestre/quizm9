@@ -8,6 +8,13 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
+
+//M7a Begin
+// Autoload de comandos con :quizId // La funcion load se define en el controlador quiz_controller pero necesita cargarse aqui ...
+router.param('quizId', quizControler.load); // autoload :quizId
+//M7a End
+
+
 /* comentado por M7mp
 router.get('/quizes/question',quizControler.question); //Quiz3
 router.get('/quizes/answer',quizControler.answer); //Quiz3
