@@ -1,5 +1,16 @@
+<form method='GET' action='/quizes'>
+<table>
+<tr><th colspan='2'>Buscar preguntas</th></tr>
+<tr>
+  <td>Contengan el texto:</td>
+  <td><input type='text' name='search' value='' placeholder='Texto a buscar aqui' size='25'></td>
+</tr>
+<tr><td colspan='2'><input type='submit' value='Buscar'></td></tr>
+</table>
+</form>
 
 <table>
+<tr><th>Lista de preguntas</th></tr>
 <%
 	var i; for(i=0;i<quizes.length;i++){%>
 		<tr>

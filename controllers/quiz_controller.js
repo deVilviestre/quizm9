@@ -1,4 +1,4 @@
-//Quiz3 //M6 P2P // M7 //M7 multiples preguntas: M7mp //M7 autoload: M7a
+//Quiz3 //M6 P2P // M7 //M7 multiples preguntas: M7mp //M7 autoload: M7a  //M7p2p
 //  GET /quizes/question
 /*
 exports.question = function(req,res){
@@ -69,9 +69,16 @@ exports.answer = function(req,res){
 
 //GET /quizes   (todas las preguntas)
 exports.index = function(req,res){
-	models.Quiz.findAll().then(function(quizes){
+	if(req.query.search){ //se filtra, se buscan preguntas
+		var search='%'+req.query.search.replace(/ /g, '%')+'%';
+		models.Quiz.findAll({where: ["pregunta like ?", search], order: 'pregunta ASC'}).then(function(quizes){
 		res.render('quizes/index.ejs',{quizes: quizes});
-	}).catch(function(error){next(error);})
+		}).catch(function(error){next(error);})		
+	} else { // no se filtra, se mostraran todas las preguntas
+		models.Quiz.findAll().then(function(quizes){
+		res.render('quizes/index.ejs',{quizes: quizes});
+		}).catch(function(error){next(error);})
+	}
 };
 //M7mp M7a End
 
