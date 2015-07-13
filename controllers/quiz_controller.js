@@ -1,4 +1,4 @@
-//Quiz3 //M6 P2P // M7 //M7 multiples preguntas: M7mp //M7 autoload: M7a  //M7p2p //M8 crear pregunta: M8cp
+//Quiz3 //M6 P2P // M7 //M7 multiples preguntas: M7mp //M7 autoload: M7a  //M7p2p //M8 crear pregunta:  //M8 validaciones: M8v
 //  GET /quizes/question
 /*
 exports.question = function(req,res){
@@ -55,7 +55,7 @@ exports.load = function(req,res,next,quizId){
 //M7mp M7a Begin
 //GET /quizes/:quizId
 exports.show = function(req,res){
-	res.render('quizes/show',{quiz: req.quiz});
+	res.render('quizes/show',{quiz: req.quiz, errors: []});
 };
 
 //GET /quizes/:quizId/answer
@@ -64,7 +64,7 @@ exports.answer = function(req,res){
 	if(req.query.respuesta===req.quiz.respuesta){
 		resultado='Correcto';
 	}
-	res.render('quizes/answer',{quiz: req.quiz, respuesta: resultado});
+	res.render('quizes/answer',{quiz: req.quiz, respuesta: resultado, errors: []});
 };
 
 //GET /quizes   (todas las preguntas)
@@ -72,33 +72,46 @@ exports.index = function(req,res){
 	if(req.query.search){ //se filtra, se buscan preguntas
 		var search='%'+req.query.search.replace(/ /g, '%')+'%';
 		models.Quiz.findAll({where: ["pregunta like ?", search], order: 'pregunta ASC'}).then(function(quizes){
-		res.render('quizes/index.ejs',{quizes: quizes});
+		res.render('quizes/index.ejs',{quizes: quizes, errors: []});
 		}).catch(function(error){next(error);})		
 	} else { // no se filtra, se mostraran todas las preguntas
 		models.Quiz.findAll().then(function(quizes){
-		res.render('quizes/index.ejs',{quizes: quizes});
+		res.render('quizes/index.ejs',{quizes: quizes, errors: []});
 		}).catch(function(error){next(error);})
 	}
 };
 //M7mp M7a End
 
 //M8cp Begin
-// GET /quies/new
+// GET /quizes/new
 exports.new = function(req,res){
 	var quiz=models.Quiz.build({pregunta: 'Pregunta', respuesta: 'Respuesta'}); //creo objeto quiz para proponerlo como el nuevo ...
-	res.render('quizes/new',{quiz: quiz}); //a la vista new
+	res.render('quizes/new',{quiz: quiz, errors: []}); //a la vista new
 };
 
+// POST /quizes/create
 exports.create = function(req,res){
 	var quiz=models.Quiz.build(req.body.quiz); //viene del formulario por elegir esos nombres de campo tipo objeto[propiedad] !!
 	//ahora guardamos en la BD la pregunta
+	/*
 	quiz.save({fields: ['pregunta','respuesta']}).then(function(){
 		res.redirect('/quizes'); //tras meter la nueva pregunta en la BD se hace redireccion a la lista de preguntas para verla (no hay vista propia)
 	})
+	*/
+	quiz.validate().then(
+		function(err){
+			if(err){
+				res.render('quizes/new',{quiz: quiz, errors: err.errors}); //proponemos otra vez nueva pregunta conservando lo ya puesto 
+			} else {
+				quiz.save({fields: ["pregunta","respuesta"]})  //guarda en la BD
+				.then(function(){res.redirect('/quizes')})     //redirige a lista de preguntas (no vista propia a renderizar)
+			}
+		}
+	);
 };
 //M8cp End
 
 //  GET /author   // Modulo-6 P2P
 exports.author = function(req,res){
-	res.render('author', {autor: 'Luis Miguel MARTIN', foto: '/turing.jpg'});
+	res.render('author', {autor: 'Luis Miguel MARTIN', foto: '/turing.jpg', errors: []});
 };

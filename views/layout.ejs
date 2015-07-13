@@ -32,7 +32,20 @@
 	</nav>
 	
 	<section class='main' id='s1'>
+	
+	<% //M8v
+		if(errors.length){ %>
+			<span id='ErrorMsgs'>
+				Corregir errores:<br/>
+				<% for(var i in errors) {%>
+					<span><%=errors[i].message%></span><br/>
+				<%}%>
+			</span>
+		<%}
+	%>
+	
 	 <%- body %>
+	 
 	</section>
 	
 	<footer class='main' id='f1'>
