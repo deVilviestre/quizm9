@@ -25,6 +25,10 @@ router.get('/quizes',quizControler.index);                 //lista de preguntas
 router.get('/quizes/:quizId(\\d+)',quizControler.show);    //pregunta elegida
 router.get('/quizes/:quizId(\\d+)/answer',quizControler.answer);    //pregunta elegida respuesta 
 //M7mp End
+//M8cp Begin
+router.get('/quizes/new', quizControler.new);  //solicitar formulario para proponer nueva pregunta
+router.post('/quizes/create', quizControler.create); //para crear nueva pregunta en la BD
+//M8cp End
 
 router.get('/author',quizControler.author); //Modulo-6 P2P
 

@@ -22,7 +22,8 @@ app.use(partials()); //Quiz4
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+///app.use(bodyParser.urlencoded({ extended: false }));  //comentada por M8cp
+app.use(bodyParser.urlencoded()); //M8cp // para soportar los mapeos objeto[propiedad] en nombres de campos de formulario html !!
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

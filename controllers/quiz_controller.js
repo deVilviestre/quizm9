@@ -1,4 +1,4 @@
-//Quiz3 //M6 P2P // M7 //M7 multiples preguntas: M7mp //M7 autoload: M7a  //M7p2p
+//Quiz3 //M6 P2P // M7 //M7 multiples preguntas: M7mp //M7 autoload: M7a  //M7p2p //M8 crear pregunta: M8cp
 //  GET /quizes/question
 /*
 exports.question = function(req,res){
@@ -81,6 +81,22 @@ exports.index = function(req,res){
 	}
 };
 //M7mp M7a End
+
+//M8cp Begin
+// GET /quies/new
+exports.new = function(req,res){
+	var quiz=models.Quiz.build({pregunta: 'Pregunta', respuesta: 'Respuesta'}); //creo objeto quiz para proponerlo como el nuevo ...
+	res.render('quizes/new',{quiz: quiz}); //a la vista new
+};
+
+exports.create = function(req,res){
+	var quiz=models.Quiz.build(req.body.quiz); //viene del formulario por elegir esos nombres de campo tipo objeto[propiedad] !!
+	//ahora guardamos en la BD la pregunta
+	quiz.save({fields: ['pregunta','respuesta']}).then(function(){
+		res.redirect('/quizes'); //tras meter la nueva pregunta en la BD se hace redireccion a la lista de preguntas para verla (no hay vista propia)
+	})
+};
+//M8cp End
 
 //  GET /author   // Modulo-6 P2P
 exports.author = function(req,res){
