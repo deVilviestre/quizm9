@@ -140,6 +140,14 @@ exports.update = function(req,res){
 };
 //M8edit End
 
+//M8borrar Begin
+exports.destroy = function(req,res){
+	req.quiz.destroy().then(function(){
+		res.redirect('/quizes');
+	}).catch(function(error){next(error)});
+};
+//M8borrar End
+
 //  GET /author   // Modulo-6 P2P
 exports.author = function(req,res){
 	res.render('author', {autor: 'Luis Miguel MARTIN', foto: '/turing.jpg', errors: []});

@@ -33,6 +33,9 @@ router.post('/quizes/create', quizControler.create); //para crear nueva pregunta
 router.get('/quizes/:quizId(\\d+)/edit', quizControler.edit);  //solicitar formulario para editar una pregunta existente
 router.put('/quizes/:quizId(\\d+)', quizControler.update);  //actualizar la pregunta editada
 //M8edit End
+//M8borrar Begin
+router.delete('/quizes/:quizId(\\d+)', quizControler.destroy);  //Borrar o eliminar la pregunta editada
+//M8borrar End
 
 router.get('/author',quizControler.author); //Modulo-6 P2P
 
