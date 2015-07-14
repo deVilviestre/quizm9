@@ -85,7 +85,7 @@ exports.index = function(req,res){
 //M8cp Begin
 // GET /quizes/new
 exports.new = function(req,res){
-	var quiz=models.Quiz.build({pregunta: 'Pregunta', respuesta: 'Respuesta'}); //creo objeto quiz para proponerlo como el nuevo ...
+	var quiz=models.Quiz.build({pregunta: 'Pregunta', respuesta: 'Respuesta', tema: 'Otro'}); //creo objeto quiz para proponerlo como el nuevo ...
 	res.render('quizes/new',{quiz: quiz, errors: []}); //a la vista new
 };
 
@@ -103,7 +103,7 @@ exports.create = function(req,res){
 			if(err){
 				res.render('quizes/new',{quiz: quiz, errors: err.errors}); //proponemos otra vez nueva pregunta conservando lo ya puesto 
 			} else {
-				quiz.save({fields: ["pregunta","respuesta"]})  //guarda en la BD
+				quiz.save({fields: ["pregunta","respuesta","tema"]})  //guarda en la BD
 				.then(function(){res.redirect('/quizes')})     //redirige a lista de preguntas (no vista propia a renderizar)
 			}
 		}
@@ -121,6 +121,7 @@ exports.edit = function(req,res){
 exports.update = function(req,res){
 	req.quiz.pregunta=req.body.quiz.pregunta;  //recogemos del formulario
 	req.quiz.respuesta=req.body.quiz.respuesta;//recogemos del formulario
+	req.quiz.tema=req.body.quiz.tema;//recogemos del formulario
 	
 	req.quiz
 	.validate()
@@ -130,7 +131,7 @@ exports.update = function(req,res){
 				res.render('quizes/edit',{quiz: req.quiz, errors: err.errors});
 			} else {
 				req.quiz  //save guarda en la BD los campos que digamos
-				.save({fields: ["pregunta","respuesta"]})
+				.save({fields: ["pregunta","respuesta","tema"]})
 				//.update({pregunta: req.quiz.pregunta, respuesta: req.quiz.respuesta})
 				.then(function(){res.redirect('/quizes');});  //redireccion a lista de preguntas, no hay vista propia a renderizar tras editar una pregunta
 			}
