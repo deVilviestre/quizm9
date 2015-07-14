@@ -111,6 +111,35 @@ exports.create = function(req,res){
 };
 //M8cp End
 
+//M8edit Begin
+//GET /quizes/:quizId/edit
+exports.edit = function(req,res){
+	var quiz=req.quiz; //el autoload nos la ha cargado
+	res.render('quizes/edit',{quiz: quiz, errors: []});
+};
+
+exports.update = function(req,res){
+	req.quiz.pregunta=req.body.quiz.pregunta;  //recogemos del formulario
+	req.quiz.respuesta=req.body.quiz.respuesta;//recogemos del formulario
+	
+	req.quiz
+	.validate()
+	.then(
+		function(err){
+			if(err){
+				res.render('quizes/edit',{quiz: req.quiz, errors: err.errors});
+			} else {
+				req.quiz  //save guarda en la BD los campos que digamos
+				.save({fields: ["pregunta","respuesta"]})
+				//.update({pregunta: req.quiz.pregunta, respuesta: req.quiz.respuesta})
+				.then(function(){res.redirect('/quizes');});  //redireccion a lista de preguntas, no hay vista propia a renderizar tras editar una pregunta
+			}
+		}
+	);
+	
+};
+//M8edit End
+
 //  GET /author   // Modulo-6 P2P
 exports.author = function(req,res){
 	res.render('author', {autor: 'Luis Miguel MARTIN', foto: '/turing.jpg', errors: []});

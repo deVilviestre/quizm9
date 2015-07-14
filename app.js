@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var partials = require('express-partials'); //Quiz4
+var methodOverride = require('method-override'); //M8edit
 
 var routes = require('./routes/index');
 ///var users = require('./routes/users');
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 ///app.use(bodyParser.urlencoded({ extended: false }));  //comentada por M8cp
 app.use(bodyParser.urlencoded()); //M8cp // para soportar los mapeos objeto[propiedad] en nombres de campos de formulario html !!
 app.use(cookieParser());
+app.use(methodOverride('_method')); //M8edit
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
