@@ -26,17 +26,17 @@ router.get('/quizes/answer',quizControler.answer); //Quiz3
 router.get('/quizes',quizControler.index);                 //lista de preguntas
 router.get('/quizes/:quizId(\\d+)',quizControler.show);    //pregunta elegida
 router.get('/quizes/:quizId(\\d+)/answer',quizControler.answer);    //pregunta elegida respuesta 
-//M7mp End
+//M7mp 
 //M8cp Begin
-router.get('/quizes/new', quizControler.new);  //solicitar formulario para proponer nueva pregunta
-router.post('/quizes/create', quizControler.create); //para crear nueva pregunta en la BD
+router.get('/quizes/new', sessionController.loginRequired, quizControler.new); //solicitar formulario para proponer nueva pregunta // LOGINREQUIRED M9Quiz17
+router.post('/quizes/create', sessionController.loginRequired, quizControler.create); //para crear nueva pregunta en la BD // LOGINREQUIRED M9Quiz17
 //M8cp End
 //M8edit Begin
-router.get('/quizes/:quizId(\\d+)/edit', quizControler.edit);  //solicitar formulario para editar una pregunta existente
-router.put('/quizes/:quizId(\\d+)', quizControler.update);  //actualizar la pregunta editada
+router.get('/quizes/:quizId(\\d+)/edit', sessionController.loginRequired, quizControler.edit);  //solicitar formulario para editar una pregunta existente // LOGINREQUIRED M9Quiz17
+router.put('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizControler.update);  //actualizar la pregunta editada // LOGINREQUIRED M9Quiz17
 //M8edit End
 //M8borrar Begin
-router.delete('/quizes/:quizId(\\d+)', quizControler.destroy);  //Borrar o eliminar la pregunta editada
+router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizControler.destroy);  //Borrar o eliminar la pregunta editada // LOGINREQUIRED M9Quiz17
 //M8borrar End
 
 //M9 Begin

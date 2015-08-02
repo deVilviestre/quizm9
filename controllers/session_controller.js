@@ -1,4 +1,15 @@
-//M9Quiz16
+//M9Quiz17 Begin
+// MW de autorización de accesos HTTP restringidos
+exports.loginRequired = function(req, res, next){
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+};
+//M9Quiz17 End
+
+//M9Quiz16 Begin
 
 // GET /login  --Formulario de login
 exports.new = function(req, res){
@@ -33,3 +44,5 @@ exports.destroy = function(req, res){
   // Redirección a path anterior a login
   res.redirect(req.session.redir.toString());
 };
+
+//M9Quiz16 End

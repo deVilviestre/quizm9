@@ -9,9 +9,13 @@
 </table>
 </form>
 
+<%
+   var cols=2; //supongo que no hay usuario autenticado => se muestran 2 columnas
+   if(session.user)cols=4; // si hay usuario autenticado => se muestran 4 columnas  //M9Quiz17
+%>
 
 <table>
-<tr><th colspan='4'>Lista de preguntas</th></tr>
+<tr><th colspan='<%=cols%>'>Lista de preguntas</th></tr>
 <%
 	var i; for(i=0;i<quizes.length;i++){%>
 		<tr>
@@ -21,6 +25,8 @@
 		  <td>
 				<%=quizes[i].tema%>
 		  </td>
+		  
+		  <%if(session.user){%>
 		  <td>
 				<a href="/quizes/<%=quizes[i].id%>/edit"><button>Editar</button></a>
 		  </td>
@@ -31,10 +37,13 @@
 					</button>
 				</form>
 		  </td>
+		  <%}%>
+		  
 		</tr>
 	<%}
 %>
 </table><p>
 
-
-<a href='/quizes/new'><button type='button'>Crear pregunta</button></a>
+<%if(session.user){%>
+  <a href='/quizes/new'><button type='button'>Crear pregunta</button></a>
+<%}%>
