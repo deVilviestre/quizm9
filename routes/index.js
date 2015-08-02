@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var quizControler = require('../controllers/quiz_controller'); //Quiz3
-var commentController = require('../controllers/comment_controller'); //M9
+var commentController = require('../controllers/comment_controller'); //M9Quiz15
+var sessionController = require('../controllers/session_controller'); //M9Quiz16
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -42,6 +43,12 @@ router.delete('/quizes/:quizId(\\d+)', quizControler.destroy);  //Borrar o elimi
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments'   , commentController.create);
 //M9 End
+//M9Quiz16 Begin
+// Definición de rutas de sesión
+router.get('/login',  sessionController.new); //formulario de login
+router.post('/login', sessionController.create); //crear sesión
+router.get('/logout', sessionController.destroy); //destruir sesión 
+//M9Quiz16 End
 
 router.get('/author',quizControler.author); //Modulo-6 P2P
 
