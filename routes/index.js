@@ -52,6 +52,8 @@ router.post('/login', sessionController.create); //crear sesión
 router.get('/logout', sessionController.destroy); //destruir sesión 
 //M9Quiz16 End
 
+router.get('/quizes/statistics', quizControler.statistics);  //M9p2pOpcional
+
 router.get('/author',quizControler.author); //Modulo-6 P2P
 
 module.exports = router;
