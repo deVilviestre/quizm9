@@ -14,6 +14,7 @@ router.get('/', function(req, res) {
 //M7a Begin
 // Autoload de comandos con :quizId // La funcion load se define en el controlador quiz_controller pero necesita cargarse aqui ...
 router.param('quizId', quizControler.load); // autoload :quizId
+router.param('commentId',commentController.load); //autoload :commentId //M9Quiz18
 //M7a End
 
 
@@ -42,6 +43,7 @@ router.delete('/quizes/:quizId(\\d+)', sessionController.loginRequired, quizCont
 //M9 Begin
 router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
 router.post('/quizes/:quizId(\\d+)/comments'   , commentController.create);
+router.get('/quizes/:quizId(\\d+)/comments/:commentId(\\d+)/publish', sessionController.loginRequired, commentController.publish); //M9Quiz18//LOGINREQUIRED
 //M9 End
 //M9Quiz16 Begin
 // Definición de rutas de sesión
