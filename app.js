@@ -44,6 +44,19 @@ app.use(function(req, res, next) {
 });
 //M9Quiz16 End
 
+//M9p2pObligatoria  Begin
+// Caducidad de la sesion: 2 minutos 120000 milisegundos
+app.use(function(req, res, next) {
+  var now = new Date().getTime();
+  if (req.session.ultimaVez && now-req.session.ultimaVez>120000) {
+    delete req.session.user;  //sesion caducada
+  }
+  req.session.ultimaVez = now; //en todo caso apuntamos ultima vez
+  next();
+});
+//M9p2pObligatoria  End
+
+
 app.use('/', routes);
 ///app.use('/users', users);
 

@@ -34,7 +34,7 @@ exports.create = function(req, res){
     // La sesión se define por la existencia de: req.session.user
     req.session.user = {id: user.id, username: user.username};
     // Redirección a path anterior a login
-    res.redirect(req.session.redir.toString());
+	res.redirect(req.session.redir?req.session.redir.toString():"/quizes"); //Si no hay donde redireccionar elijo /quizes
   });
 };
 
@@ -42,7 +42,7 @@ exports.create = function(req, res){
 exports.destroy = function(req, res){
   delete req.session.user;
   // Redirección a path anterior a login
-  res.redirect(req.session.redir.toString());
+  res.redirect(req.session.redir?req.session.redir.toString():"/quizes"); //Si no hay donde redireccionar elijo /quizes
 };
 
 //M9Quiz16 End
