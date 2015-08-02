@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var quizControler = require('../controllers/quiz_controller'); //Quiz3
+var commentController = require('../controllers/comment_controller'); //M9
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -36,6 +37,11 @@ router.put('/quizes/:quizId(\\d+)', quizControler.update);  //actualizar la preg
 //M8borrar Begin
 router.delete('/quizes/:quizId(\\d+)', quizControler.destroy);  //Borrar o eliminar la pregunta editada
 //M8borrar End
+
+//M9 Begin
+router.get('/quizes/:quizId(\\d+)/comments/new', commentController.new);
+router.post('/quizes/:quizId(\\d+)/comments'   , commentController.create);
+//M9 End
 
 router.get('/author',quizControler.author); //Modulo-6 P2P
 

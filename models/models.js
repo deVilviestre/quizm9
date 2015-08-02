@@ -1,4 +1,4 @@
-//M7 //M7h para despliegue BD en Heroku(postgresql)
+//M7 //M7h para despliegue BD en Heroku(postgresql) //M9
 //Este fichero se ocuparía de todas las tablas individuales y se cargará desde el controlador. Luego cada tabla tendra su fichero en este directorio models
 var path = require('path');
 
@@ -40,7 +40,16 @@ var sequelize = new Sequelize(
 
 //Importar la definicion de la tabla Quiz de quiz.js
 var Quiz = sequelize.import(path.join(__dirname,'quiz'));
+
+//Importar la definicion de la tabla Comment de comment.js
+var Comment = sequelize.import(path.join(__dirname,'comment'));
+
+//Relaciones entre tablas
+Comment.belongsTo(Quiz, {onDelete: 'cascade'});
+Quiz.hasMany(Comment);
+
 exports.Quiz = Quiz; //exportar definicion de tabla Quiz
+exports.Comment = Comment; //exportar definicion de tabla Comment
 
 // sequelize.sync() crea e inicializa tabla de preguntas en BD
 sequelize.sync().then(function(){
